@@ -18,5 +18,7 @@ namespace CW2.Client.Services
         Task<List<Ticket>> CreateTicket(Ticket ticket);
 
         Task<List<Ticket>> UpdateTicket(Ticket ticket, int id);
+
+        Task<List<Ticket>> DeleteTicket(int id);
     }
 }

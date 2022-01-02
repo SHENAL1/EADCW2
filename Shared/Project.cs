@@ -10,7 +10,7 @@ namespace CW2.Shared
     public class Project
     {
         [Key]
-        public int ProjectId { get; set; }
+        public int ProjectId { get; set; } = 0;
 
         
         public string ProjectName { get; set; }

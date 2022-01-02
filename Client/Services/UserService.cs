@@ -43,7 +43,15 @@ namespace CW2.Client.Services
 
         public async Task<List<User>> UpdateUser(User user, int id)
         {
-            var result = await _httpClient.PostAsJsonAsync($"api/user/{id}", user);
+            var result = await _httpClient.PutAsJsonAsync($"api/user/{id}", user);
+            Users = await result.Content.ReadFromJsonAsync<List<User>>();
+            OnChange.Invoke();
+            return Users;
+        }
+
+        public async Task<List<User>> UDeleteUser(int id)
+        {
+            var result = await _httpClient.DeleteAsync($"api/user/{id}");
             Users = await result.Content.ReadFromJsonAsync<List<User>>();
             OnChange.Invoke();
             return Users;

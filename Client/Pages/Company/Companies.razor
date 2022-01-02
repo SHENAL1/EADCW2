@@ -23,6 +23,7 @@ else
                 <th>PhoneNo</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -39,21 +40,24 @@ else
                     <td>
                         <button class="btn btn-primary" @onclick="(() => UpdateCompany(company.CompanyId))">Update</button>
                     </td>
-
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => DeleteCompany(company.CompanyId))">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 }
-<CreateCompany></CreateCompany>
+<CreateCompany Company="companyToUpdate"></CreateCompany>
 
 @code {
 
-    CW2.Shared.Company companyToUpdate = null;
+    CW2.Shared.Company companyToUpdate = new CW2.Shared.Company();
 
     protected override async Task OnInitializedAsync()
     {
         await CompanyService.GetCompanies();
+        @*This will automatically add the newly created company details to the table*@
         CompanyService.OnChange += StateHasChanged;
 
     }
@@ -64,15 +68,21 @@ else
         NavigationManager.NavigateTo($"company/{companyId}");
     }
 
-    @*This is to invoke the update of a company*@
-    void UpdateCompany(int companyId)
-    {
-        
-    }
-
     public void Dispose()
     {
         CompanyService.OnChange -= StateHasChanged;
+    }
+
+    @*This is to invoke the update of a company*@
+    void UpdateCompany(int companyId)
+    {
+        companyToUpdate = CompanyService.Companies.Find(c => c.CompanyId == companyId);
+    }
+
+    @*This is to invoke the delete of a company*@
+    void DeleteCompany(int companyId)
+    {
+        CompanyService.DeleteCompany(companyId);
     }
 
 }

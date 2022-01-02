@@ -47,5 +47,13 @@ namespace CW2.Client.Services
             OnChange.Invoke();
             return Companies;
         }
+
+        public async Task<List<Company>> DeleteCompany(int id)
+        {
+            var result = await _httpClient.DeleteAsync($"api/company/{id}");
+            Companies = await result.Content.ReadFromJsonAsync<List<Company>>();
+            OnChange.Invoke();
+            return Companies;
+        }
     }
 }

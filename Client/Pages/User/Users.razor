@@ -24,6 +24,8 @@ else
                 <th>User Type</th>
                 <th>Company</th>
                 <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -40,16 +42,22 @@ else
                     <td>
                         <button class="btn btn-primary" @onclick="(() => ShowUser(user.UserId))">View</button>
                     </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => UpdateUser(user.UserId))">Update</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => DeleteUser(user.UserId))">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 }
-<CreateUser></CreateUser>
+<CreateUser User="userToUpdate"></CreateUser>
 
 @code {
 
-    List<CW2.Shared.User> users = new List<CW2.Shared.User>();
+    CW2.Shared.User userToUpdate = new CW2.Shared.User();
 
     protected override async Task OnInitializedAsync()
     {
@@ -67,6 +75,18 @@ else
     public void Dispose()
     {
         UserService.OnChange -= StateHasChanged;
+    }
+
+    @*This is to invoke the update of a User*@
+    void UpdateUser(int userId)
+    {
+        userToUpdate = UserService.Users.Find(u => u.UserId == userId);
+    }
+
+    @*This is to invoke the delete of a User*@
+    void DeleteUser(int userId)
+    {
+        UserService.UDeleteUser(userId);
     }
 
 }

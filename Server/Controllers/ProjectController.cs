@@ -59,8 +59,23 @@ namespace CW2.Server.Controllers
             {
                 return NotFound("The Project is not in the system");
             }
+            var indexProject = projects.IndexOf(dbProject);
+            projects[indexProject] = project;
+           
+            return Ok(projects);
 
-            dbProject = project;
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProject(int id)
+        {
+            var dbProject = projects.FirstOrDefault(p => p.ProjectId == id);
+            if (dbProject == null)
+            {
+                return NotFound("The Project is not in the system");
+            }
+            projects.Remove(dbProject);
 
             return Ok(projects);
 

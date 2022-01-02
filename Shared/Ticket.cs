@@ -10,7 +10,7 @@ namespace CW2.Shared
     public class Ticket
     {
         [Key]
-        public int TicketId { get; set; }
+        public int TicketId { get; set; } = 0;
 
         
         public string TicketDescription { get; set; }

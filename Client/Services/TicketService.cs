@@ -44,7 +44,15 @@ namespace CW2.Client.Services
 
         public async Task<List<Ticket>> UpdateTicket(Ticket ticket, int id)
         {
-            var result = await _httpClient.PostAsJsonAsync($"api/ticket/{id}", ticket);
+            var result = await _httpClient.PutAsJsonAsync($"api/ticket/{id}", ticket);
+            Tickets = await result.Content.ReadFromJsonAsync<List<Ticket>>();
+            OnChange.Invoke();
+            return Tickets;
+        }
+
+        public async Task<List<Ticket>> DeleteTicket(int id)
+        {
+            var result = await _httpClient.DeleteAsync($"api/ticket/{id}");
             Tickets = await result.Content.ReadFromJsonAsync<List<Ticket>>();
             OnChange.Invoke();
             return Tickets;

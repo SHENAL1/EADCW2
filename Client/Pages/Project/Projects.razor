@@ -22,34 +22,44 @@ else
                 <th>EndDate</th>
                 <th>ProjectStatus</th>
                 <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var project in ProjectService.Projects)
             {
-            <tr>
-                <td>@project.ProjectId</td>
-                <td>@project.ProjectName</td>
-                <td>@project.StartDate</td>
-                <td>@project.EndDate</td>
-                <td>@project.ProjectStatus</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="(() => ShowProject(project.ProjectId))">View</button>
-                </td>
-            </tr>
+                <tr>
+                    <td>@project.ProjectId</td>
+                    <td>@project.ProjectName</td>
+                    <td>@project.StartDate</td>
+                    <td>@project.EndDate</td>
+                    <td>@project.ProjectStatus</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => ShowProject(project.ProjectId))">View</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => UpdateProject(project.ProjectId))">Update</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => DeleteProject(project.ProjectId))">Delete</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 }
 
-<CreateProject></CreateProject>
+<CreateProject Project="projectToUpdate"></CreateProject>
 
 @code {
-   
+
+    CW2.Shared.Project projectToUpdate = new CW2.Shared.Project();
+
     protected override async Task OnInitializedAsync()
     {
         await ProjectService.GetProjects();
-    @*This will automatically add the newly created project details to the table*@
+        @*This will automatically add the newly created project details to the table*@
         ProjectService.OnChange += StateHasChanged;
     }
 
@@ -61,6 +71,18 @@ else
 
     public void Dispose()
     {
-        ProjectService.OnChange -= StateHasChanged;     
+        ProjectService.OnChange -= StateHasChanged;
+    }
+
+    @*This is to invoke the update of a project*@
+    void UpdateProject(int projectId)
+    {
+        projectToUpdate = ProjectService.Projects.Find(p => p.ProjectId == projectId);
+    }
+
+    @*This is to invoke the delete of a project*@
+    void DeleteProject(int projectId)
+    {
+       ProjectService.DeleteProject(projectId);
     }
 }

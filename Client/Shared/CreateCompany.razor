@@ -1,7 +1,14 @@
 ﻿@inject ICompanyService CompanyService
 @inject IJSRuntime JSRuntime
 
-<h3>Create Company</h3>
+@if (Company.CompanyId == 0)
+{
+    <h3>Create Company</h3>
+}
+else 
+{ 
+<h3>Update @Company.CompanyName</h3>
+}
 
 <EditForm Model="Company" OnSubmit="HandleCompanySubmit">
 
@@ -26,20 +33,33 @@
         <InputText @bind-Value="Company.CompanyDescription" class="form-control"></InputText>
     </div>
 
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm>
 
 @code {
-    [Parameter]
-    public CW2.Shared.Company CompanyToEdit { get; set; }
+    @*[Parameter]
+        public CW2.Shared.Company CompanyToEdit { get; set; }*@
 
+    [Parameter]
     public CW2.Shared.Company Company { get; set; } = new CW2.Shared.Company();
 
     async void HandleCompanySubmit()
     {
-        Console.WriteLine("Submit was done");
         await JSRuntime.InvokeVoidAsync("console.log", Company);
 
-        await CompanyService.CreateCompany(Company);
+        if (Company.CompanyId == 0)
+        {
+            Console.WriteLine("Create was done");
+            await CompanyService.CreateCompany(Company);
+        }
+        else
+        {
+            Console.WriteLine("Update was done");
+            await CompanyService.UpdateCompany(Company, Company.CompanyId);
+        }
+
+
+
+
     }
 }

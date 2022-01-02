@@ -60,7 +60,24 @@ namespace CW2.Server.Controllers
                 return NotFound("The User is not in the system");
             }
 
-            dbUser = user;
+            var indexUser = users.IndexOf(dbUser);
+            users[indexUser] = user;
+
+            return Ok(users);
+
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var dbUser = users.FirstOrDefault(u => u.UserId == id);
+            if (dbUser == null)
+            {
+                return NotFound("The User is not in the system");
+            }
+
+            users.Remove(dbUser);
 
             return Ok(users);
 

@@ -43,7 +43,15 @@ namespace CW2.Client.Services
 
         public async Task<List<Project>> UpdateProject(Project project, int id)
         {
-            var result = await _httpClient.PostAsJsonAsync($"api/project/{id}", project);
+            var result = await _httpClient.PutAsJsonAsync($"api/project/{id}", project);
+            Projects = await result.Content.ReadFromJsonAsync<List<Project>>();
+            OnChange.Invoke();
+            return Projects;
+        }
+
+        public async Task<List<Project>> DeleteProject(int id)
+        {
+            var result = await _httpClient.DeleteAsync($"api/project/{id}");
             Projects = await result.Content.ReadFromJsonAsync<List<Project>>();
             OnChange.Invoke();
             return Projects;

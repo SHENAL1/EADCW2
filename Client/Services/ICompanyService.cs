@@ -18,5 +18,7 @@ namespace CW2.Client.Services
         Task<List<Company>> CreateCompany(Company company);
 
         Task<List<Company>> UpdateCompany(Company company, int id);
+
+        Task<List<Company>> DeleteCompany(int id);
     }
 }

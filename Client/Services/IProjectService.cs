@@ -18,5 +18,7 @@ namespace CW2.Client.Services
         Task<List<Project>> CreateProject(Project project);
 
         Task<List<Project>> UpdateProject(Project project, int id);
+
+        Task<List<Project>> DeleteProject(int id);
     }
 }

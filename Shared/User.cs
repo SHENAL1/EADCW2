@@ -10,7 +10,7 @@ namespace CW2.Shared
     public class User
     {
         [Key]
-        public int UserId { get; set; }
+        public int UserId { get; set; } = 0;
 
         
         public string UserName { get; set; }

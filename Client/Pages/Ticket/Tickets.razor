@@ -22,29 +22,39 @@ else
                 <th>Project</th>
                 <th>User</th>
                 <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var ticket in TicketService.Tickets)
             {
-            <tr>
-                <td>@ticket.TicketId</td>
-                <td>@ticket.TicketDescription</td>
-                <td>@ticket.TicketStatus</td>
-                <td>@ticket.Project</td>
-                <td>@ticket.User</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="(() => ShowTicket(ticket.TicketId))">View</button>
-                </td>
-            </tr>
+                <tr>
+                    <td>@ticket.TicketId</td>
+                    <td>@ticket.TicketDescription</td>
+                    <td>@ticket.TicketStatus</td>
+                    <td>@ticket.Project</td>
+                    <td>@ticket.User</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => ShowTicket(ticket.TicketId))">View</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => UpdateTicket(ticket.TicketId))">Update</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => DeleteTicket(ticket.TicketId))">Delete</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 }
 
-<CreateTicket></CreateTicket>
+<CreateTicket Ticket="ticketToUpdate"></CreateTicket>
 
 @code {
+    CW2.Shared.Ticket ticketToUpdate = new CW2.Shared.Ticket();
+
     protected override async Task OnInitializedAsync()
     {
         await TicketService.GetTickets();
@@ -58,7 +68,19 @@ else
     }
 
     public void Dispose()
-        {
-            TicketService.OnChange -= StateHasChanged;
-        }
+    {
+        TicketService.OnChange -= StateHasChanged;
+    }
+
+    @*This is to invoke the update of a Ticket*@
+    void UpdateTicket(int ticketId)
+    {
+        ticketToUpdate = TicketService.Tickets.Find(t => t.TicketId == ticketId);
+    }
+
+    @*This is to invoke the delete of a Ticket*@
+    void DeleteTicket(int ticketId)
+    {
+        TicketService.DeleteTicket(ticketId);
+    }
 }

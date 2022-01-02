@@ -18,5 +18,7 @@ namespace CW2.Client.Services
         Task<List<User>> CreateUser(User user);
 
         Task<List<User>> UpdateUser(User user, int id);
+
+        Task<List<User>> UDeleteUser(int id);
     }
 }

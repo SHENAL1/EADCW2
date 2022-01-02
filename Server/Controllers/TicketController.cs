@@ -59,7 +59,26 @@ namespace CW2.Server.Controllers
                 return NotFound("The Ticket is not in the system");
             }
 
-            dbTicket = ticket;
+            var indexTicket = tickets.IndexOf(dbTicket);
+            tickets[indexTicket] = ticket;
+
+
+            return Ok(tickets);
+
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTicket(int id)
+        {
+            var dbTicket = tickets.FirstOrDefault(t => t.TicketId == id);
+            if (dbTicket == null)
+            {
+                return NotFound("The Ticket is not in the system");
+            }
+
+            tickets.Remove(dbTicket);
+
 
             return Ok(tickets);
 

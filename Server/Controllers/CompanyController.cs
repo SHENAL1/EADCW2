@@ -59,7 +59,24 @@ namespace CW2.Server.Controllers
                 return NotFound("The Company is not in the system");
             }
 
-            dbCompany = company;
+            var indexCompany = companies.IndexOf(dbCompany);
+            companies[indexCompany] = company;
+
+            return Ok(companies);
+
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCompany(int id)
+        {
+            var dbCompany = companies.FirstOrDefault(c => c.CompanyId == id);
+            if (dbCompany == null)
+            {
+                return NotFound("The Company is not in the system");
+            }
+
+            companies.Remove(dbCompany);
 
             return Ok(companies);
 

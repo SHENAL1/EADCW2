@@ -10,7 +10,7 @@ namespace CW2.Shared
     public class Company
     {
         [Key]
-        public int CompanyId { get; set; }
+        public int CompanyId { get; set; } = 0;
 
         
         public string CompanyName { get; set; }

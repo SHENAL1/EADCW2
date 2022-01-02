@@ -1,7 +1,15 @@
 ﻿@inject IUserService UserService
 @inject IJSRuntime JSRuntime
 
-<h3>Create User</h3>
+@if (User.UserId == 0)
+{
+    <h3>Create User</h3>
+}
+else
+{
+    <h3>Update @User.UserName </h3>
+}
+
 
 <EditForm Model="User" OnSubmit="HandleUserSubmit">
 
@@ -30,17 +38,26 @@
         <InputText @bind-Value="User.UserType" class="form-control"></InputText>
     </div>
 
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm>
 
 @code {
+    [Parameter]
     public CW2.Shared.User User { get; set; } = new CW2.Shared.User();
 
     async void HandleUserSubmit()
     {
-        Console.WriteLine("Submit was done");
         await JSRuntime.InvokeVoidAsync("console.log", User);
 
-        await UserService.CreateUser(User);
+        if (User.UserId == 0)
+        {
+            Console.WriteLine("Create was done");
+            await UserService.CreateUser(User);
+        }
+        else
+        {
+            Console.WriteLine("Update was done");
+            await UserService.UpdateUser(User, User.UserId);
+        }
     }
 }
