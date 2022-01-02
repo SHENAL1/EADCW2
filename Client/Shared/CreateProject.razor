@@ -1,0 +1,42 @@
+﻿@inject IProjectService ProjectService
+@inject IJSRuntime JSRuntime
+ 
+<h3>Create Project</h3>
+
+<EditForm Model="Project" OnSubmit="HandleProjectSubmit">
+
+    <div class="form-group">
+        <label>Project name</label>
+        <InputText @bind-Value="Project.ProjectName" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Project Description</label>
+        <InputText @bind-Value="Project.ProjectDescription" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Start Date</label>
+        <InputText @bind-Value="Project.StartDate" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>End Date</label>
+        <InputText @bind-Value="Project.EndDate" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Project Status</label>
+        <InputText @bind-Value="Project.ProjectStatus" class="form-control"></InputText>
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Create</button>
+</EditForm>
+
+@code {
+    public CW2.Shared.Project Project { get; set; } = new CW2.Shared.Project();
+
+    async void HandleProjectSubmit()
+    {
+        Console.WriteLine("Submit was called");
+        await JSRuntime.InvokeVoidAsync("console.log", Project);
+
+        await ProjectService.CreateProject(Project);
+    }
+}

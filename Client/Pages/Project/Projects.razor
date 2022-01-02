@@ -1,0 +1,66 @@
+﻿@page "/projects"
+@inject IProjectService ProjectService
+@inject NavigationManager NavigationManager
+@implements IDisposable
+
+<h3>Projects</h3>
+
+@if (ProjectService.Projects.Count == 0)
+{
+    <span>The Projects are loading...</span>
+    <br>
+    <b>If the Projects are not getting loaded try login to the system</b>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Project Id</th>
+                <th>Project Name</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>ProjectStatus</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in ProjectService.Projects)
+            {
+            <tr>
+                <td>@project.ProjectId</td>
+                <td>@project.ProjectName</td>
+                <td>@project.StartDate</td>
+                <td>@project.EndDate</td>
+                <td>@project.ProjectStatus</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="(() => ShowProject(project.ProjectId))">View</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<CreateProject></CreateProject>
+
+@code {
+   
+    protected override async Task OnInitializedAsync()
+    {
+        await ProjectService.GetProjects();
+    @*This will automatically add the newly created project details to the table*@
+        ProjectService.OnChange += StateHasChanged;
+    }
+
+    @*This method would navigate to project details page *@
+    void ShowProject(int projectId)
+    {
+        NavigationManager.NavigateTo($"project/{projectId}");
+    }
+
+    public void Dispose()
+    {
+        ProjectService.OnChange -= StateHasChanged;     
+    }
+}

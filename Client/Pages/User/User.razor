@@ -1,0 +1,35 @@
+﻿@page "/user/{userId:int}"
+@inject IUserService UserService
+
+
+<h3>User Details</h3>
+
+@if (user == null)
+{
+    <span>The User detalis are loading!</span>
+}
+else
+{
+    <h4>User Id is @user.UserId</h4>
+    <h4>User Name :  @user.</h4>
+    <h4>First Name : @user.FirstName</h4>
+    <h4>Last Name :  @user.LastName</h4>
+    <h4>Email :  @user.UserEmail</h4>
+    <h4>Phone Number @user.UserPhoneNo</h4>
+    <h4>User type : @user.UserType</h4>
+    <h4>Company assigend for : @user.Company</h4>
+
+}
+
+@code {
+    [Parameter]
+    public int UserId { get; set; }
+
+    CW2.Shared.User user = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserService.GetSingleUser(UserId);
+
+    }
+}

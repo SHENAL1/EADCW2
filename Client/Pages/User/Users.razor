@@ -1,0 +1,72 @@
+﻿@page "/users"
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
+@implements IDisposable
+
+<h3>Users</h3>
+
+@if (UserService.Users.Count == 0)
+{
+    <span>The Users are loading...</span>
+    <br>
+    <b>If the Users are not getting loaded try login to the system</b>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>PhoneNo</th>
+                <th>User Type</th>
+                <th>Company</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in UserService.Users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.UserEmail</td>
+                    <td>@user.UserPhoneNo</td>
+                    <td>@user.UserType</td>
+                    <td>@user.Company</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => ShowUser(user.UserId))">View</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<CreateUser></CreateUser>
+
+@code {
+
+    List<CW2.Shared.User> users = new List<CW2.Shared.User>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UserService.GetUsers();
+        UserService.OnChange += StateHasChanged;
+
+    }
+
+    @*This method would navigate to project details page *@
+    void ShowUser(int userId)
+    {
+        NavigationManager.NavigateTo($"user/{userId}");
+    }
+
+    public void Dispose()
+    {
+        UserService.OnChange -= StateHasChanged;
+    }
+
+}

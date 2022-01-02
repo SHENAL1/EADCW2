@@ -1,0 +1,36 @@
+﻿@inject ITicketService TicketService
+@inject IJSRuntime JSRuntime
+<h3>Create Ticket</h3>
+
+<EditForm Model="Ticket" OnSubmit="HandleTicketSubmit">
+    <div class="form-group">
+        <label>Ticket Description</label>
+        <InputText @bind-Value="Ticket.TicketDescription" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Project Description</label>
+        <InputText @bind-Value="Ticket.TicketStatus" class="form-control"></InputText>
+    </div>
+    @*<div class="form-group">
+        <label>Start Date</label>
+        <InputText @bind-Value="Ticket.Project" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>End Date</label>
+        <InputText @bind-Value="Ticket.User" class="form-control"></InputText>
+    </div>*@
+    
+    <button type="submit" class="btn btn-primary">Create</button>
+</EditForm>
+
+@code {
+    public CW2.Shared.Ticket Ticket { get; set; } = new CW2.Shared.Ticket();
+
+    async void HandleTicketSubmit()
+    {
+        Console.WriteLine("Submit was done");
+        await JSRuntime.InvokeVoidAsync("console.log", Ticket);
+
+        await TicketService.CreateTicket(Ticket);
+    }
+}
