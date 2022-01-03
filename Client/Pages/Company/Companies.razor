@@ -1,0 +1,88 @@
+﻿@page "/companies"
+@inject ICompanyService CompanyService
+@inject NavigationManager NavigationManager
+@implements IDisposable
+
+<h3>Companies</h3>
+
+
+@if (CompanyService.Companies.Count == 0)
+{
+    <span>The Companies are loading...</span>
+    <br>
+    <b>If the Projects are not getting loaded try login to the system</b>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>PhoneNo</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in CompanyService.Companies)
+            {
+                <tr>
+                    <td>@company.CompanyName</td>
+                    <td>@company.CompanyAddress</td>
+                    <td>@company.CompanyEmail</td>
+                    <td>@company.CompanyPhoneNo</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => ShowCompany(company.CompanyId))">View</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => UpdateCompany(company.CompanyId))">Update</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="(() => DeleteCompany(company.CompanyId))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<CreateCompany Company="companyToUpdate"></CreateCompany>
+
+@code {
+
+    CW2.Shared.Company companyToUpdate = new CW2.Shared.Company();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CompanyService.GetCompanies();
+        @*This will automatically add the newly created company details to the table*@
+        CompanyService.OnChange += StateHasChanged;
+
+    }
+
+    @*This method would navigate to company details page *@
+    void ShowCompany(int companyId)
+    {
+        NavigationManager.NavigateTo($"company/{companyId}");
+    }
+
+    public void Dispose()
+    {
+        CompanyService.OnChange -= StateHasChanged;
+    }
+
+    @*This is to invoke the update of a company*@
+    void UpdateCompany(int companyId)
+    {
+        companyToUpdate = CompanyService.Companies.Find(c => c.CompanyId == companyId);
+    }
+
+    @*This is to invoke the delete of a company*@
+    void DeleteCompany(int companyId)
+    {
+        CompanyService.DeleteCompany(companyId);
+    }
+
+}

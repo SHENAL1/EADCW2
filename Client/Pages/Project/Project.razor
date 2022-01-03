@@ -1,0 +1,34 @@
+﻿@page "/project/{projectId:int}"
+@inject IProjectService ProjectService
+
+<h3>Project Details</h3>
+
+@if (project == null)
+{
+    <span>The Project detalis are loading!</span>
+}
+else
+{
+    <h4>Project Id is @project.ProjectId</h4>
+    <h4>Project Name : @project.ProjectName</h4>
+    <h4>Start Date is @project.StartDate</h4>
+    <h4>End Date is @project.EndDate</h4>
+    <h4>Project Status :  @project.ProjectStatus</h4>
+    <h4>Project Description is @project.ProjectDescription</h4>
+
+}
+
+
+@code {
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    CW2.Shared.Project project = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        project = await ProjectService.GetSingleProject(ProjectId);
+
+    }
+
+}

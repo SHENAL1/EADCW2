@@ -1,0 +1,65 @@
+﻿@inject ICompanyService CompanyService
+@inject IJSRuntime JSRuntime
+
+@if (Company.CompanyId == 0)
+{
+    <h3>Create Company</h3>
+}
+else 
+{ 
+<h3>Update @Company.CompanyName</h3>
+}
+
+<EditForm Model="Company" OnSubmit="HandleCompanySubmit">
+
+    <div class="form-group">
+        <label>Company Name</label>
+        <InputText @bind-Value="Company.CompanyName" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Company Address</label>
+        <InputText @bind-Value="Company.CompanyAddress" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <InputText @bind-Value="Company.CompanyEmail" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Phone Number</label>
+        <InputText @bind-Value="Company.CompanyPhoneNo" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <InputText @bind-Value="Company.CompanyDescription" class="form-control"></InputText>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+</EditForm>
+
+@code {
+    @*[Parameter]
+        public CW2.Shared.Company CompanyToEdit { get; set; }*@
+
+    [Parameter]
+    public CW2.Shared.Company Company { get; set; } = new CW2.Shared.Company();
+
+    async void HandleCompanySubmit()
+    {
+        await JSRuntime.InvokeVoidAsync("console.log", Company);
+
+        if (Company.CompanyId == 0)
+        {
+            Console.WriteLine("Create was done");
+            await CompanyService.CreateCompany(Company);
+        }
+        else
+        {
+            Console.WriteLine("Update was done");
+            await CompanyService.UpdateCompany(Company, Company.CompanyId);
+        }
+
+
+
+
+    }
+}

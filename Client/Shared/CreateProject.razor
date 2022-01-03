@@ -1,0 +1,59 @@
+﻿@inject IProjectService ProjectService
+@inject IJSRuntime JSRuntime
+
+@if (Project.ProjectId == 0)
+{
+    <h3>Create Project</h3>
+}
+else
+{
+<h3>Update @Project.ProjectName </h3>
+}
+
+<EditForm Model="Project" OnSubmit="HandleProjectSubmit">
+
+    <div class="form-group">
+        <label>Project name</label>
+        <InputText @bind-Value="Project.ProjectName" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Project Description</label>
+        <InputText @bind-Value="Project.ProjectDescription" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Start Date</label>
+        <InputText @bind-Value="Project.StartDate" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>End Date</label>
+        <InputText @bind-Value="Project.EndDate" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Project Status</label>
+        <InputText @bind-Value="Project.ProjectStatus" class="form-control"></InputText>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public CW2.Shared.Project Project { get; set; } = new CW2.Shared.Project();
+
+    async void HandleProjectSubmit()
+    {
+        await JSRuntime.InvokeVoidAsync("console.log", Project);
+
+        if (Project.ProjectId == 0)
+        {
+            Console.WriteLine("Create was done");
+            await ProjectService.CreateProject(Project);
+        }
+        else
+        {
+            Console.WriteLine("Update was done");
+            await ProjectService.UpdateProject(Project, Project.ProjectId);
+        }
+    }
+}
