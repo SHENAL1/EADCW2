@@ -30,6 +30,6 @@ namespace CW2.Shared
         
         public string UserType { get; set; }
         
-        public Company Company { get; set; }
+        //public Company Company { get; set; }
     }
 }

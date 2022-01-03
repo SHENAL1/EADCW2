@@ -20,7 +20,7 @@ else
                 <th>Description</th>
                 <th>Status</th>
                 <th>Project</th>
-                <th>User</th>
+                @*<th>User</th>*@
                 <th></th>
                 <th></th>
                 <th></th>
@@ -34,7 +34,7 @@ else
                     <td>@ticket.TicketDescription</td>
                     <td>@ticket.TicketStatus</td>
                     <td>@ticket.Project</td>
-                    <td>@ticket.User</td>
+                    @*<td>@ticket.User</td>*@
                     <td>
                         <button class="btn btn-primary" @onclick="(() => ShowTicket(ticket.TicketId))">View</button>
                     </td>

@@ -12,14 +12,15 @@ namespace CW2.Shared
         [Key]
         public int TicketId { get; set; } = 0;
 
-        
+        public string TicketName { get; set; }
+
         public string TicketDescription { get; set; }
 
         public string TicketStatus { get; set; }
 
         public Project Project { get; set; }
 
-        public User User { get; set; }
+        //public User User { get; set; }
 
     }
 }

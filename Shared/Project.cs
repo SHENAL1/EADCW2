@@ -26,7 +26,7 @@ namespace CW2.Shared
 
         public string ProjectStatus { get; set; }
         
-        public User User { get; set; }
+        //public User User { get; set; }
 
     }
 }

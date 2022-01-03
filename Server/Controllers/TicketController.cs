@@ -14,8 +14,8 @@ namespace CW2.Server.Controllers
     {
         static List<Ticket> tickets = new List<Ticket>
         {
-            new Ticket { TicketId=1, TicketDescription = "Create Home Page", TicketStatus ="Completed"},
-            new Ticket { TicketId=2, TicketDescription = "Create Payment Gateway", TicketStatus ="Inprogress"}
+            new Ticket { TicketId=1, TicketName="Ticket1", TicketDescription = "Create Home Page", TicketStatus ="Completed"},
+            new Ticket { TicketId=2, TicketName="Ticket2", TicketDescription = "Create Payment Gateway", TicketStatus ="Inprogress"}
         };
 
         [HttpGet]

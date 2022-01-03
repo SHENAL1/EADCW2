@@ -22,7 +22,7 @@ else
                 <th>Email</th>
                 <th>PhoneNo</th>
                 <th>User Type</th>
-                <th>Company</th>
+                @*<th>Company</th>*@
                 <th></th>
                 <th></th>
                 <th></th>
@@ -38,7 +38,7 @@ else
                     <td>@user.UserEmail</td>
                     <td>@user.UserPhoneNo</td>
                     <td>@user.UserType</td>
-                    <td>@user.Company</td>
+                    @*<td>@user.Company</td>*@
                     <td>
                         <button class="btn btn-primary" @onclick="(() => ShowUser(user.UserId))">View</button>
                     </td>
