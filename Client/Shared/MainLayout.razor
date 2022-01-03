@@ -16,3 +16,9 @@
         </div>
     </div>
 </div>
+
+@code{
+    [CascadingParameter]
+    Task <AuthenticationState> authenticationState { get; set; }
+
+}
