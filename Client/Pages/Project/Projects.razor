@@ -3,7 +3,7 @@
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
-<h3>Projects</h3>
+<h3 style="text-align:center;">Projects</h3>
 
 @if (ProjectService.Projects.Count == 0)
 {
@@ -14,7 +14,7 @@
 else
 {
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>Project Id</th>
                 <th>Project Name</th>

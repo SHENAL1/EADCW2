@@ -3,7 +3,7 @@
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
-<h3>Companies</h3>
+<h3 style="text-align:center;">Companies</h3>
 
 
 @if (CompanyService.Companies.Count == 0)
@@ -14,8 +14,11 @@
 }
 else
 {
+@*<p>
+    <a class="btn btn-success" href="/createCompany">Create</a>
+</p>*@
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>Name</th>
                 <th>Address</th>
@@ -77,6 +80,8 @@ else
     void UpdateCompany(int companyId)
     {
         companyToUpdate = CompanyService.Companies.Find(c => c.CompanyId == companyId);
+
+        @*NavigationManager.NavigateTo("createCompany/");*@
     }
 
     @*This is to invoke the delete of a company*@

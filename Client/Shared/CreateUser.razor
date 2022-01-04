@@ -3,42 +3,54 @@
 
 @if (User.UserId == 0)
 {
-    <h3>Create User</h3>
+    <h3 style="text-align:center;">Create User</h3>
 }
 else
 {
-    <h3>Update @User.UserName </h3>
+    <h3 style="text-align:center;">Update @User.UserName </h3>
 }
 
 
 <EditForm Model="User" OnSubmit="HandleUserSubmit">
+    
+    <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-bottom: 50px; background-color: #300c4d; color: #ffffff;">
 
-    <div class="form-group">
-        <label>User Name</label>
-        <InputText @bind-Value="User.UserName" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>First Name</label>
-        <InputText @bind-Value="User.FirstName" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>Last Name</label>
-        <InputText @bind-Value="User.LastName" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>Email</label>
-        <InputText @bind-Value="User.UserEmail" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>Phone Number</label>
-        <InputText @bind-Value="User.UserPhoneNo" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>User Type</label>
-        <InputText @bind-Value="User.UserType" class="form-control"></InputText>
-    </div>
+        <div class="form-group">
+            <label>User Name</label>
+            <InputText @bind-Value="User.UserName" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>First Name</label>
+            <InputText @bind-Value="User.FirstName" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <InputText @bind-Value="User.LastName" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <InputText @bind-Value="User.UserEmail" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <InputText @bind-Value="User.UserPhoneNo" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>User Type</label>
+            <InputText @bind-Value="User.UserType" class="form-control"></InputText>
+        </div>
 
-    <button type="submit" class="btn btn-success">Submit</button>
+        
+
+        @if (User.UserId == 0)
+        {
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color:#007EA7; " class="btn btn-primary">Submit</button>
+        }
+        else
+        {
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color:#007EA7; " class="btn btn-primary">Update</button>
+        }
+    </div>
 </EditForm>
 
 @code {

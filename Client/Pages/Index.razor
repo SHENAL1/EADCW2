@@ -1,8 +1,31 @@
-﻿@page "/"
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-<h2>Hello Shenal , And Welcome to Project Management System</h2>
-<br><br>
+@inject NavigationManager Navigation
 
-<strong>Manage your day to day projects and handle them with ease!!</strong>
+@page "/"
+
+<AuthorizeView>
+    <Authorized>
+        <h2>Hello @context.User.Identity.Name , And Welcome to Project Management System</h2>
+        <strong>Manage your day to day projects and handle them with ease!!</strong>
+    </Authorized>
+    <NotAuthorized>
+        <h2>It seems you have not Logged in ! <a href="authentication/login">Log in</a> to use the system</h2>
+        
+
+        <strong><a href="authentication/login">Log in</a> to access the project management system features!!</strong>
+    </NotAuthorized>
+</AuthorizeView>
+
+            
+<br>
+<br>
+
+
 
 @*<SurveyPrompt Title="How is Blazor working for you?" />*@
+
+
+
+            

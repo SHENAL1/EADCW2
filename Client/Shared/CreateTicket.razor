@@ -3,37 +3,48 @@
 
 @if (Ticket.TicketId == 0)
 {
-    <h3>Create Ticket</h3>
+    <h3 style="text-align:center;">Create Ticket</h3>
 }
 else
 {
-    <h3>Update Ticket ID : @Ticket.TicketId </h3>
+    <h3 style="text-align:center;">Update Ticket ID : @Ticket.TicketId </h3>
 }
 
 
 <EditForm Model="Ticket" OnSubmit="HandleTicketSubmit">
-    <div class="form-group">
-        <label>Ticket Name</label>
-        <InputText @bind-Value="Ticket.TicketName" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>Ticket Description</label>
-        <InputText @bind-Value="Ticket.TicketDescription" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>Project Description</label>
-        <InputText @bind-Value="Ticket.TicketStatus" class="form-control"></InputText>
-    </div>
-    @*<div class="form-group">
-            <label>Start Date</label>
-            <InputText @bind-Value="Ticket.Project" class="form-control"></InputText>
+    <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-bottom: 50px; background-color: #300c4d; color: #ffffff;">
+        <div class="form-group">
+            <label>Ticket Name</label>
+            <InputText @bind-Value="Ticket.TicketName" class="form-control"></InputText>
         </div>
         <div class="form-group">
-            <label>End Date</label>
-            <InputText @bind-Value="Ticket.User" class="form-control"></InputText>
-        </div>*@
+            <label>Ticket Description</label>
+            <InputText @bind-Value="Ticket.TicketDescription" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>Project Description</label>
+            <InputText @bind-Value="Ticket.TicketStatus" class="form-control"></InputText>
+        </div>
+        @*<div class="form-group">
+                <label>Start Date</label>
+                <InputText @bind-Value="Ticket.Project" class="form-control"></InputText>
+            </div>
+            <div class="form-group">
+                <label>End Date</label>
+                <InputText @bind-Value="Ticket.User" class="form-control"></InputText>
+            </div>*@
 
-    <button type="submit" class="btn btn-success">Submit</button>
+        
+        @if (Ticket.TicketId == 0)
+        {
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Submit</button>
+        }
+        else
+        {
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>
+        }
+
+    </div>
 </EditForm>
 
 @code {

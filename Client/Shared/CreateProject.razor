@@ -3,37 +3,45 @@
 
 @if (Project.ProjectId == 0)
 {
-    <h3>Create Project</h3>
+    <h3 style="text-align:center;">Create Project</h3>
 }
 else
 {
-<h3>Update @Project.ProjectName </h3>
+    <h3 style="text-align:center;">Update @Project.ProjectName </h3>
 }
 
 <EditForm Model="Project" OnSubmit="HandleProjectSubmit">
+    <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-bottom: 50px; background-color: #300c4d; color: #ffffff;">
+        <div class="form-group">
+            <label>Project name</label>
+            <InputText @bind-Value="Project.ProjectName" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>Project Description</label>
+            <InputText @bind-Value="Project.ProjectDescription" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>Start Date</label>
+            <InputText @bind-Value="Project.StartDate" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>End Date</label>
+            <InputText @bind-Value="Project.EndDate" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label>Project Status</label>
+            <InputText @bind-Value="Project.ProjectStatus" class="form-control"></InputText>
+        </div>
 
-    <div class="form-group">
-        <label>Project name</label>
-        <InputText @bind-Value="Project.ProjectName" class="form-control"></InputText>
+        @if (Project.ProjectId == 0)
+        {
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Submit</button>
+        }
+        else
+        {
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>
+        }
     </div>
-    <div class="form-group">
-        <label>Project Description</label>
-        <InputText @bind-Value="Project.ProjectDescription" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>Start Date</label>
-        <InputText @bind-Value="Project.StartDate" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>End Date</label>
-        <InputText @bind-Value="Project.EndDate" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label>Project Status</label>
-        <InputText @bind-Value="Project.ProjectStatus" class="form-control"></InputText>
-    </div>
-
-    <button type="submit" class="btn btn-success">Submit</button>
 </EditForm>
 
 @code {

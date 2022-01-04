@@ -3,7 +3,7 @@
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
-<h3>Users</h3>
+<h3 style="text-align:center;">Users</h3>
 
 @if (UserService.Users.Count == 0)
 {
@@ -14,7 +14,7 @@
 else
 {
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>User Name</th>
                 <th>First Name</th>

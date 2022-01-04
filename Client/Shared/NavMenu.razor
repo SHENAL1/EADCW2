@@ -22,30 +22,33 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
             </NavLink>
         </li>*@
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="companies">
-                <span class="oi oi-briefcase" aria-hidden="true"></span>Manage Companies
-            </NavLink>
-        </li>
+        <AuthorizeView>
+            <Authorized>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="companies">
+                        <span class="oi oi-briefcase" aria-hidden="true"></span>Manage Companies
+                    </NavLink>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="users">
-                <span class="oi oi-people" aria-hidden="true"></span>Manage Users
-            </NavLink>
-        </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="users">
+                        <span class="oi oi-people" aria-hidden="true"></span>Manage Users
+                    </NavLink>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="projects">
-                <span class="oi oi-project" aria-hidden="true"></span>Manage Projects
-            </NavLink>
-        </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="projects">
+                        <span class="oi oi-project" aria-hidden="true"></span>Manage Projects
+                    </NavLink>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="tickets">
-                <span class="oi oi-task" aria-hidden="true"></span>Manage Tickets
-            </NavLink>
-        </li>
-
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="tickets">
+                        <span class="oi oi-task" aria-hidden="true"></span>Manage Tickets
+                    </NavLink>
+                </li>
+            </Authorized>
+        </AuthorizeView>
 
     </ul>
 </div>

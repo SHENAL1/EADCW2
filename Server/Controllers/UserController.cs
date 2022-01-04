@@ -99,7 +99,7 @@ namespace CW2.Server.Controllers
 
             _context.Users.Remove(dbUser);
             await _context.SaveChangesAsync();
-            return Ok(users);
+            return Ok(await GetDbUser());
 
 
         }

@@ -3,7 +3,7 @@
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
-<h3>Manage Tickets</h3>
+<h3 style="text-align:center;">Manage Tickets</h3>
 
 @if (TicketService.Tickets.Count == 0)
 {
@@ -14,7 +14,7 @@
 else
 {
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>Ticket Id</th>
                 <th>Ticket Name</th>

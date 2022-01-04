@@ -94,7 +94,7 @@ namespace CW2.Server.Controllers
 
             _context.Tickets.Remove(dbTicket);
             await _context.SaveChangesAsync();
-            return Ok(tickets);
+            return Ok(await GetDbTickets());
 
 
         }
