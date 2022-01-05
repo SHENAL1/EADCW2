@@ -10,27 +10,39 @@ else
     <h3 style="text-align:center;">Update @Project.ProjectName </h3>
 }
 
-<EditForm Model="Project" OnSubmit="HandleProjectSubmit">
+<EditForm Model="Project" OnValidSubmit="HandleProjectSubmit">
+    <DataAnnotationsValidator />
     <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-bottom: 50px; background-color: #300c4d; color: #ffffff;">
         <div class="form-group">
             <label>Project name</label>
             <InputText @bind-Value="Project.ProjectName" class="form-control"></InputText>
+            <ValidationMessage For="@(()=> Project.ProjectName)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label>Project Description</label>
             <InputText @bind-Value="Project.ProjectDescription" class="form-control"></InputText>
+            <ValidationMessage For="@(()=> Project.ProjectDescription)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label>Start Date</label>
             <InputText @bind-Value="Project.StartDate" class="form-control"></InputText>
+            <ValidationMessage For="@(()=> Project.StartDate)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label>End Date</label>
             <InputText @bind-Value="Project.EndDate" class="form-control"></InputText>
+            <ValidationMessage For="@(()=> Project.EndDate)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label>Project Status</label>
-            <InputText @bind-Value="Project.ProjectStatus" class="form-control"></InputText>
+            @*<InputText @bind-Value="Project.ProjectStatus" class="form-control"></InputText>*@
+            <InputSelect @bind-Value="Project.ProjectStatus" class="form-control">
+                <option value="">Select Project Status ...</option>
+                <option value="Todo">Todo</option>
+                <option value="Inprogress">Inprogress</option>
+                <option value="Completed">Completed</option>
+            </InputSelect>
+            <ValidationMessage For="@(()=> Project.ProjectStatus)"></ValidationMessage>
         </div>
 
         @if (Project.ProjectId == 0)

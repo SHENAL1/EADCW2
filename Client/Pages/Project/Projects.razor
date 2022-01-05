@@ -34,7 +34,17 @@ else
                     <td>@project.ProjectName</td>
                     <td>@project.StartDate</td>
                     <td>@project.EndDate</td>
-                    <td>@project.ProjectStatus</td>
+                    
+                    @if (@project.ProjectStatus == "Todo")
+                    {
+                        <td style="color: Highlight;"><b>@project.ProjectStatus</b></td>
+                    }@if(@project.ProjectStatus == "Inprogress")
+                    {
+                        <td style="color: orangered;"><b>@project.ProjectStatus</b></td>
+                    }@if(@project.ProjectStatus == "Completed")
+                    {
+                        <td style="color:green;"><b>@project.ProjectStatus</b></td>
+                    }
                     <td>
                         <button class="btn btn-primary" @onclick="(() => ShowProject(project.ProjectId))">View</button>
                     </td>

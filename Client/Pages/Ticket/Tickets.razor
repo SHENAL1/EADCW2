@@ -34,7 +34,18 @@ else
                     <td>@ticket.TicketId</td>
                     <td>@ticket.TicketName</td>
                     <td>@ticket.TicketDescription</td>
-                    <td>@ticket.TicketStatus</td>
+                    @if (@ticket.TicketStatus == "Todo")
+                    {
+                        <td style="color: Highlight;"><b>@ticket.TicketStatus</b></td>
+                    }@if(@ticket.TicketStatus == "Inprogress")
+                    {
+                        <td style="color: orangered;"><b>@ticket.TicketStatus</b></td>
+                    }@if(@ticket.TicketStatus == "Completed")
+                    {
+                        <td style="color:green;"><b>@ticket.TicketStatus</b></td>
+                    }
+
+                    
                     @*<td>@ticket.Project</td>*@
                     @*<td>@ticket.User</td>*@
                     <td>

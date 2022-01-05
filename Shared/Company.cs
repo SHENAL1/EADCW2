@@ -12,17 +12,25 @@ namespace CW2.Shared
         [Key]
         public int CompanyId { get; set; } = 0;
 
-        [StringLength(30, MinimumLength=5, ErrorMessage = "The Company name should be 5-30 characters.")]
+        [Required]
+        [StringLength(30, MinimumLength=3, ErrorMessage = "The Company name should be 3-30 characters.")]
         public string CompanyName { get; set; }
 
+        [Required]
         [StringLength(100, MinimumLength = 5, ErrorMessage = "The Company address should be 5-100 characters.")]
         public string CompanyAddress { get; set; }
 
+        [Required]
+        [EmailAddress]
         [StringLength(30, MinimumLength = 5, ErrorMessage = "The Company Email should be 5-30 characters.")]
         public string CompanyEmail { get; set; }
 
+        [Required]
+        [Phone]
         [StringLength(10, MinimumLength = 10, ErrorMessage = "The Company Phone number should have 10 digits.")]
         public string CompanyPhoneNo { get; set; }
+        //[Range(1, 9999999999, ErrorMessage = "The Company Phone number should have 10 digits.")]
+        //public int CompanyPhoneNo { get; set; }
 
         [StringLength(200, MinimumLength = 10, ErrorMessage = "The Company Description should be 10-200 characters.")]
         public string CompanyDescription { get; set; }
