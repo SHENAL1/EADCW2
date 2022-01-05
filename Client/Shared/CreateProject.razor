@@ -47,6 +47,17 @@ else
             <ValidationMessage For="@(()=> Project.ProjectStatus)"></ValidationMessage>
         </div>
 
+        @*<div class="form-group">
+            <label>Assign this project to User</label>
+            <InputText @bind-Value="Project.UserName" class="form-control"></InputText>
+            <ValidationMessage For="@(()=> Project.UserName)"></ValidationMessage>
+        </div>
+        <div class="form-group">
+            <label>The company this project has been assigned for</label>
+            <InputText @bind-Value="Project.CompanyName" class="form-control"></InputText>
+            <ValidationMessage For="@(()=> Project.CompanyName)"></ValidationMessage>
+        </div>*@
+
         @if (Project.ProjectId == 0)
         {
             <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Submit</button> }

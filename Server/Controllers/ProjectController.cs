@@ -14,11 +14,11 @@ namespace CW2.Server.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        static List<Project> projects = new List<Project>
-        {
-            new Project { ProjectId= 1, ProjectName="Project 1", ProjectDescription = "E Commerce Site", StartDate ="01/11/2021", EndDate = "01/12/2021", ProjectStatus = "Completed"},
-            new Project { ProjectId= 2, ProjectName="Project 2", ProjectDescription = "3 sites with Buying and Selling", StartDate ="02/12/2021", EndDate = "01/02/2022", ProjectStatus = "Inprogress"}
-        };
+        //static List<Project> projects = new List<Project>
+        //{
+        //    new Project { ProjectId= 1, ProjectName="Project 1", ProjectDescription = "E Commerce Site", StartDate ="01/11/2021", EndDate = "01/12/2021", ProjectStatus = "Completed"},
+        //    new Project { ProjectId= 2, ProjectName="Project 2", ProjectDescription = "3 sites with Buying and Selling", StartDate ="02/12/2021", EndDate = "01/02/2022", ProjectStatus = "Inprogress"}
+        //};
         private readonly ApplicationDbContext _context;
 
         public ProjectController(ApplicationDbContext context)
@@ -80,6 +80,8 @@ namespace CW2.Server.Controllers
             dbProject.ProjectStatus = project.ProjectStatus;
             dbProject.StartDate = project.StartDate;
             dbProject.EndDate = project.EndDate;
+            //dbProject.CompanyName = project.CompanyName;
+            //dbProject.UserName = project.UserName;
 
             await _context.SaveChangesAsync();
             return Ok(await GetDbProjects());

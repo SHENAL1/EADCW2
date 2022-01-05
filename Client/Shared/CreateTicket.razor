@@ -40,18 +40,16 @@ else
             <ValidationMessage For="@(()=> Ticket.TicketStatus)"></ValidationMessage>
         </div>
 
-
-
-        @*<div class="form-group">
+        <div class="form-group">
                 <label>Project Name</label>
                 <InputText @bind-Value="Ticket.ProjectName" class="form-control"></InputText>
                 <ValidationMessage For="@(()=> Ticket.ProjectName)"></ValidationMessage>
             </div>
             <div class="form-group">
-                <label>User name</label>
+                <label>Assign this ticket to user(User Name)</label>
                 <InputText @bind-Value="Ticket.UserName" class="form-control"></InputText>
                 <ValidationMessage For="@(()=> Ticket.UserName)"></ValidationMessage>
-            </div>*@
+            </div>
 
 
         @if (Ticket.TicketId == 0)

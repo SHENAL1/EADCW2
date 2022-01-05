@@ -76,6 +76,8 @@ namespace CW2.Server.Controllers
             dbTicket.TicketName = ticket.TicketName;
             dbTicket.TicketDescription = ticket.TicketDescription;
             dbTicket.TicketStatus = ticket.TicketStatus;
+            dbTicket.ProjectName = ticket.ProjectName;
+            dbTicket.UserName = ticket.UserName;
 
             await _context.SaveChangesAsync();
             return Ok(await GetDbTickets());
