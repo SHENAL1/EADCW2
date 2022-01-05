@@ -76,11 +76,13 @@ namespace CW2.Server.Controllers
 
             dbUser.UserId = user.UserId;
             dbUser.UserName = user.UserName;
+            dbUser.Password = user.Password;
             dbUser.FirstName = user.FirstName;
             dbUser.LastName = user.LastName;
             dbUser.UserEmail = user.UserEmail;
             dbUser.UserPhoneNo = user.UserPhoneNo;
             dbUser.UserType = user.UserType;
+            dbUser.CompanyName = user.CompanyName;
 
             await _context.SaveChangesAsync();
             return Ok(await GetDbUser());

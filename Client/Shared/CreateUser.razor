@@ -7,29 +7,29 @@
 
 @if (User.UserId == 0)
 {
-    <h3 style="text-align:center;">Create User</h3>
+    <h3 style="text-align:center; margin-top:50px; ">Create User</h3>
 }
 else
 {
-    <h3 style="text-align:center;">Update @User.UserName </h3>
+    <h3 style="text-align:center; margin-top:50px; ">Update @User.UserName </h3>
 }
 
 
 <EditForm Model="User" OnValidSubmit="HandleUserSubmit">
     <DataAnnotationsValidator />
 
-    <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-bottom: 50px; background-color: #300c4d; color: #ffffff;">
+    <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-top: 50px; margin-bottom: 50px; background-color: #2B2B2B; color: #ffffff; ">
 
         <div class="form-group">
             <label>User Name</label>
             <InputText @bind-Value="User.UserName" class="form-control"></InputText>
             <ValidationMessage For="@(()=> User.UserName)"></ValidationMessage>
         </div>
-        @*<div class="form-group">
+        <div class="form-group">
             <label>Password</label>
             <InputText @bind-Value="User.Password" class="form-control"></InputText>
             <ValidationMessage For="@(()=> User.Password)"></ValidationMessage>
-        </div>*@
+        </div>
 
         <div class="form-group">
             <label>First Name</label>
@@ -62,16 +62,20 @@ else
             </InputSelect>
             <ValidationMessage For="@(()=> User.UserType)"></ValidationMessage>
         </div>
-
+        <div class="form-group">
+            <label>User Company Name</label>
+            <InputText @bind-Value="User.CompanyName" class="form-control"></InputText>
+            <ValidationMessage For="@(()=> User.CompanyName)"></ValidationMessage>
+        </div>
 
 
         @if (User.UserId == 0)
         {
-            <button type="submit" style="margin-left:40%; max-width:20%; background-color:#007EA7; " class="btn btn-primary">Submit</button> 
+            <button type="submit" style="margin-left: 40%; max-width: 20%; background-color:#16FB9; " class="btn btn-primary">Create</button>
         }
         else
         {
-            <button type="submit" style="margin-left:40%; max-width:20%; background-color:#007EA7; " class="btn btn-primary">Update</button>
+            <button type="submit" style="margin-left: 40%; max-width: 20%; background-color:#16FB9; " class="btn btn-primary">Update</button>
         }
     </div>
 </EditForm>

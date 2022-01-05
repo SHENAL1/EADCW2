@@ -80,8 +80,8 @@ namespace CW2.Server.Controllers
             dbProject.ProjectStatus = project.ProjectStatus;
             dbProject.StartDate = project.StartDate;
             dbProject.EndDate = project.EndDate;
-            //dbProject.CompanyName = project.CompanyName;
-            //dbProject.UserName = project.UserName;
+            dbProject.CompanyName = project.CompanyName;
+            dbProject.UserName = project.UserName;
 
             await _context.SaveChangesAsync();
             return Ok(await GetDbProjects());

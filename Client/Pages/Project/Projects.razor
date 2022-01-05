@@ -8,9 +8,13 @@
 
 @if (ProjectService.Projects.Count == 0)
 {
-    <span>The Projects are loading...</span>
+    <span><strong>No Project details to show</strong></span>
     <br>
-    <b>If the Projects are not getting loaded try login to the system</b>
+
+    <p>
+    <a class="btn btn-success" href="/createProject"><i class="oi oi-plus"></i> Create</a>
+</p>
+    @*<b>If the Projects are not getting loaded try login to the system</b>*@
 }
 else
 {

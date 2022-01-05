@@ -8,24 +8,27 @@
 
 @if (TicketService.Tickets.Count == 0)
 {
-    <span>The Tickets are loading...</span>
+    <span><strong>No Ticket Details to show</strong></span>
     <br>
-    <b>If the Tickets are not getting loaded try login to the system</b>
+    <p>
+        <a class="btn btn-success" href="/createTicket"><i class="oi oi-plus"></i> Create</a>
+    </p>
+    @*<b>If the Tickets are not getting loaded try login to the system</b>*@
 }
 else
 {
-<p>
-    <a class="btn btn-success" href="/createTicket"><i class="oi oi-plus"></i> Create</a>
-</p>
+    <p>
+        <a class="btn btn-success" href="/createTicket"><i class="oi oi-plus"></i> Create</a>
+    </p>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
                 <th>Ticket Id</th>
                 <th>Ticket Name</th>
-                <th>Description</th>
+                @*<th>Description</th>*@
                 <th>Status</th>
-                @*<th>Project</th>*@
-                @*<th>User</th>*@
+                <th>Project</th>
+                <th>User</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -37,21 +40,21 @@ else
                 <tr>
                     <td>@ticket.TicketId</td>
                     <td>@ticket.TicketName</td>
-                    <td>@ticket.TicketDescription</td>
+                    @*<td>@ticket.TicketDescription</td>*@
                     @if (@ticket.TicketStatus == "Todo")
                     {
                         <td style="color: Highlight;"><b>@ticket.TicketStatus</b></td>
-                    }@if(@ticket.TicketStatus == "Inprogress")
+                    }@if (@ticket.TicketStatus == "Inprogress")
                     {
                         <td style="color: orangered;"><b>@ticket.TicketStatus</b></td>
-                    }@if(@ticket.TicketStatus == "Completed")
+                    }@if (@ticket.TicketStatus == "Completed")
                     {
                         <td style="color:green;"><b>@ticket.TicketStatus</b></td>
                     }
 
-                    
-                    @*<td>@ticket.Project</td>*@
-                    @*<td>@ticket.User</td>*@
+
+                    <td>@ticket.ProjectName</td>
+                    <td>@ticket.UserName</td>
                     <td>
                         <button class="btn btn-primary" @onclick="(() => ShowTicket(ticket.TicketId))"><i class="oi oi-eye"></i> View</button>
                     </td>
@@ -92,14 +95,14 @@ else
     @*This is to invoke the update of a Ticket*@
     void UpdateTicket(int ticketId)
     {
-        
+
         NavigationManager.NavigateTo($"createTicket/{ticketId}");
     }
 
     @*This is to invoke the delete of a Ticket*@
     async void DeleteTicket(int ticketId)
     {
-        
+
 
         @if (await JSRuntime.InvokeAsync<bool>("confirm", $"Do you want to Delete this Ticket?"))
         {

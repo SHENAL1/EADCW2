@@ -2,22 +2,60 @@
 @inject IUserService UserService
 
 
-<h3>User Details</h3>
+
 
 @if (user == null)
 {
+    <h3 style="text-align:center;">User Details</h3>
     <span>The User detalis are loading!</span>
 }
 else
 {
-    <h4>User Id is @user.UserId</h4>
-    <h4>User Name :  @user.UserName</h4>
-    <h4>First Name : @user.FirstName</h4>
-    <h4>Last Name :  @user.LastName</h4>
-    <h4>Email :  @user.UserEmail</h4>
-    <h4>Phone Number @user.UserPhoneNo</h4>
-    <h4>User type : @user.UserType</h4>
-    @*<h4>Company assigend for : @user.Company</h4>*@
+    <h3 style="text-align:center;">User @user.UserName Details</h3>
+    <table  class="table table-striped" style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-top: 50px; margin-left: 25%; margin-bottom: 50px; background-color: #2B2B2B; color: #ffffff; ">
+        <tbody>
+
+            <tr>
+                <td>User Id </td>
+                <td>@user.UserId</td>
+            </tr>
+            <tr>
+                <td>User Name</td>
+                <td>@user.UserName</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>@user.Password</td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td>@user.FirstName</td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>@user.LastName</td>
+            </tr>
+            <tr>
+                <td>User Email</td>
+                <td>@user.UserEmail</td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td>@user.UserPhoneNo</td>
+            </tr>
+            <tr>
+                <td>User Type</td>
+                <td>@user.UserType</td>
+            </tr>
+            <tr>
+                <td>Company Name</td>
+                <td>@user.CompanyName</td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
 
 }
 

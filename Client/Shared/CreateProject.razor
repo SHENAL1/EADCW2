@@ -7,16 +7,16 @@
 
 @if (Project.ProjectId == 0)
 {
-    <h3 style="text-align:center;">Create Project</h3> }
+    <h3 style="text-align: center; margin-top:50px; ">Create Project</h3> }
 else
 {
-    <h3 style="text-align:center;">Update @Project.ProjectName </h3>}
+    <h3 style="text-align: center; margin-top: 50px; ">Update @Project.ProjectName </h3>}
 
 <EditForm Model="Project" OnValidSubmit="HandleProjectSubmit">
     <DataAnnotationsValidator />
-    <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-bottom: 50px; background-color: #300c4d; color: #ffffff;">
+    <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-top:50px; margin-bottom: 50px; background-color: #2B2B2B; color: #ffffff; ">
         <div class="form-group">
-            <label>Project name</label>
+            <label>Project Name</label>
             <InputText @bind-Value="Project.ProjectName" class="form-control"></InputText>
             <ValidationMessage For="@(()=> Project.ProjectName)"></ValidationMessage>
         </div>
@@ -26,12 +26,12 @@ else
             <ValidationMessage For="@(()=> Project.ProjectDescription)"></ValidationMessage>
         </div>
         <div class="form-group">
-            <label>Start Date</label>
+            <label>Start Date (DD/MM/YYYY)</label>
             <InputText @bind-Value="Project.StartDate" class="form-control"></InputText>
             <ValidationMessage For="@(()=> Project.StartDate)"></ValidationMessage>
         </div>
         <div class="form-group">
-            <label>End Date</label>
+            <label>End Date (DD/MM/YYYY)</label>
             <InputText @bind-Value="Project.EndDate" class="form-control"></InputText>
             <ValidationMessage For="@(()=> Project.EndDate)"></ValidationMessage>
         </div>
@@ -47,7 +47,7 @@ else
             <ValidationMessage For="@(()=> Project.ProjectStatus)"></ValidationMessage>
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             <label>Assign this project to User</label>
             <InputText @bind-Value="Project.UserName" class="form-control"></InputText>
             <ValidationMessage For="@(()=> Project.UserName)"></ValidationMessage>
@@ -56,14 +56,14 @@ else
             <label>The company this project has been assigned for</label>
             <InputText @bind-Value="Project.CompanyName" class="form-control"></InputText>
             <ValidationMessage For="@(()=> Project.CompanyName)"></ValidationMessage>
-        </div>*@
+        </div>
 
         @if (Project.ProjectId == 0)
         {
-            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Submit</button> }
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #016FB9; " class="btn btn-primary">Create</button> }
         else
         {
-            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>}
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #016FB9; " class="btn btn-primary">Update</button>}
     </div>
 </EditForm>
 

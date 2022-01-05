@@ -1,20 +1,45 @@
 ﻿@page "/ticket/{ticketId:int}"
 @inject ITicketService TicketService
 
-<h3>Ticket Details</h3>
+
 
 @if (ticket == null)
-{
+{   <h3>Ticket Details</h3>
     <span>The Ticket details are loading!</span>
 }
 else
 {
-    <h4>Ticket Id is @ticket.TicketId</h4
-    <h4>Ticket Name: @ticket.TicketName</h4>
-    <h4>Ticket Description : @ticket.TicketDescription</h4>
-    <h4>Ticket Status :  @ticket.TicketStatus</h4>
-    @*<h4>Ticket belongs to project : @ticket.Project</h4>*@
-    @*<h4>Assigned user : @ticket.User</h4>*@
+    <h3 style="text-align:center;">Ticket @ticket.TicketName Details</h3>
+    <table  class="table table-striped" style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-top: 50px; margin-left: 25%; margin-bottom: 50px; background-color: #2B2B2B; color: #ffffff; ">
+        <tbody>
+
+                <tr>
+                    <td>Ticket Id </td>
+                    <td>@ticket.TicketId</td>
+                </tr>
+                <tr>
+                    <td>Ticket Name</td>
+                    <td>@ticket.TicketName</td>
+                </tr>
+                <tr>
+                    <td>Ticket Description</td>
+                    <td>@ticket.TicketDescription</td>
+                </tr>
+                <tr>
+                    <td>Ticket Status</td>
+                    <td>@ticket.TicketStatus</td>
+                </tr>
+                <tr>
+                    <td>Projects Name</td>
+                    <td>@ticket.ProjectName</td>
+                </tr>
+                <tr>
+                    <td>User Name</td>
+                    <td>@ticket.UserName</td>
+                </tr>
+                
+        </tbody>
+    </table>
 
 }
 

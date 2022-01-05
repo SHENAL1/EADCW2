@@ -8,9 +8,12 @@
 
 @if (UserService.Users.Count == 0)
 {
-    <span>The Users are loading...</span>
+    <span><strong>No User details to show</strong></span>
     <br>
-    <b>If the Users are not getting loaded try login to the system</b>
+    <p>
+        <a class="btn btn-success" href="/createUser"><i class="oi oi-plus"></i> Create</a>
+    </p>
+    @*<b>If the Users are not getting loaded try login to the system</b>*@
 }
 else
 {
@@ -95,7 +98,7 @@ else
             await UserService.UDeleteUser(userId);
             await JSRuntime.InvokeVoidAsync("alert", $"User Deleted Successfully!");
         }
-        
+
 
     }
 

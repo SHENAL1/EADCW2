@@ -7,17 +7,17 @@
 
 @if (Ticket.TicketId == 0)
 {
-    <h3 style="text-align:center;">Create Ticket</h3> 
+    <h3 style="text-align:center; margin-top:50px; ">Create Ticket</h3> 
 }
 else
 {
-    <h3 style="text-align:center;">Update Ticket ID : @Ticket.TicketId </h3>
+    <h3 style="text-align:center; margin-top:50px; ">Update Ticket ID : @Ticket.TicketId </h3>
 }
 
 
 <EditForm Model="Ticket" OnValidSubmit="HandleTicketSubmit">
     <DataAnnotationsValidator />
-    <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-bottom: 50px; background-color: #300c4d; color: #ffffff;">
+    <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-top: 50px; margin-bottom: 50px; background-color: #2B2B2B; color: #ffffff;">
         <div class="form-group">
             <label>Ticket Name</label>
             <InputText @bind-Value="Ticket.TicketName" class="form-control"></InputText>
@@ -54,10 +54,10 @@ else
 
         @if (Ticket.TicketId == 0)
         {
-            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Create</button> }
+            <button type="submit" style="margin-left: 40%; max-width: 20%; background-color: #16FB9; " class="btn btn-primary">Create</button> }
         else
         {
-            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>
+            <button type="submit" style="margin-left: 40%; max-width: 20%; background-color: #16FB9; " class="btn btn-primary">Update</button>
         }
 
     </div>

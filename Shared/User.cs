@@ -16,9 +16,9 @@ namespace CW2.Shared
         [StringLength(30, MinimumLength = 3, ErrorMessage = "The User Name should be 3-30 characters.")]
         public string UserName { get; set; }
 
-        //[Required]
-        //[StringLength(10, MinimumLength = 3, ErrorMessage = "The User Name should be 3-10 characters.")]
-        //public string Password { get; set; }
+        [Required]
+        [StringLength(10, MinimumLength = 3, ErrorMessage = "The User Name should be 3-10 characters.")]
+        public string Password { get; set; }
 
         [Required]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "The First Name should be 3-30 characters.")]
@@ -38,7 +38,10 @@ namespace CW2.Shared
 
         [Required(ErrorMessage = "Select the User Type")]
         public string UserType { get; set; }
-        
+
+        [Required(ErrorMessage = "Enter the correct company name")]
+        public string CompanyName { get; set; }
+
         //public Company Company { get; set; }
     }
 }

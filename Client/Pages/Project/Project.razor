@@ -1,20 +1,52 @@
 ﻿@page "/project/{projectId:int}"
 @inject IProjectService ProjectService
 
-<h3>Project Details</h3>
+
 
 @if (project == null)
-{
+{   <h3>Project Details</h3>
     <span>The Project detalis are loading!</span>
 }
 else
 {
-    <h4>Project Id is @project.ProjectId</h4>
-    <h4>Project Name : @project.ProjectName</h4>
-    <h4>Start Date is @project.StartDate</h4>
-    <h4>End Date is @project.EndDate</h4>
-    <h4>Project Status :  @project.ProjectStatus</h4>
-    <h4>Project Description is @project.ProjectDescription</h4>
+    <h3 style="text-align:center;">Project @project.ProjectName Details</h3>
+    <table  class="table table-striped" style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-top: 50px; margin-left: 25%; margin-bottom: 50px; background-color: #2B2B2B; color: #ffffff; ">
+        <tbody>
+
+            <tr>
+                <td>Project Id </td>
+                <td>@project.ProjectId</td>
+            </tr>
+            <tr>
+                <td>Project Name</td>
+                <td>@project.ProjectName</td>
+            </tr>
+            <tr>
+                <td>Start Date</td>
+                <td>@project.StartDate</td>
+            </tr>
+            <tr>
+                <td>End Date</td>
+                <td>@project.EndDate</td>
+            </tr>
+            <tr>
+                <td>Project Status</td>
+                <td>@project.ProjectStatus</td>
+            </tr>
+            <tr>
+                <td>Project Description</td>
+                <td>@project.ProjectDescription</td>
+            </tr>
+            <tr>
+                <td>Assigned User Name</td>
+                <td>@project.UserName</td>
+            </tr>
+            <tr>
+                <td>Assigned Company Name</td>
+                <td>@project.CompanyName</td>
+            </tr>
+        </tbody>
+    </table>
 
 }
 
