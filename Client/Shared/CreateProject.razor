@@ -1,14 +1,16 @@
-﻿@inject IProjectService ProjectService
+﻿@page "/createProject"
+@page "/createProject/{projectId:int}"
+
+@inject IProjectService ProjectService
 @inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
 @if (Project.ProjectId == 0)
 {
-    <h3 style="text-align:center;">Create Project</h3>
-}
+    <h3 style="text-align:center;">Create Project</h3> }
 else
 {
-    <h3 style="text-align:center;">Update @Project.ProjectName </h3>
-}
+    <h3 style="text-align:center;">Update @Project.ProjectName </h3>}
 
 <EditForm Model="Project" OnValidSubmit="HandleProjectSubmit">
     <DataAnnotationsValidator />
@@ -47,19 +49,26 @@ else
 
         @if (Project.ProjectId == 0)
         {
-            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Submit</button>
-        }
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Submit</button> }
         else
         {
-            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>
-        }
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>}
     </div>
 </EditForm>
 
-@code {
-
+@code { 
     [Parameter]
+    public int ProjectId { get; set; }
     public CW2.Shared.Project Project { get; set; } = new CW2.Shared.Project();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (this.ProjectId != 0)
+        {
+            this.Project = await ProjectService.GetSingleProject(this.ProjectId);
+        }
+
+    }
 
     async void HandleProjectSubmit()
     {
@@ -69,11 +78,14 @@ else
         {
             Console.WriteLine("Create was done");
             await ProjectService.CreateProject(Project);
+            await JSRuntime.InvokeVoidAsync("alert", $"Project was created Successfully!");
         }
         else
         {
             Console.WriteLine("Update was done");
             await ProjectService.UpdateProject(Project, Project.ProjectId);
+            await JSRuntime.InvokeVoidAsync("alert", $"Project was updated Successfully!");
         }
-    }
-}
+
+        NavigationManager.NavigateTo("projects");
+    } }

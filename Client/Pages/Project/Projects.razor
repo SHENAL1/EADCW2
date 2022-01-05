@@ -1,6 +1,7 @@
 ﻿@page "/projects"
 @inject IProjectService ProjectService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 @implements IDisposable
 
 <h3 style="text-align:center;">Projects</h3>
@@ -13,6 +14,9 @@
 }
 else
 {
+<p>
+    <a class="btn btn-success" href="/createProject"><i class="oi oi-plus"></i> Create</a>
+</p>
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -46,13 +50,13 @@ else
                         <td style="color:green;"><b>@project.ProjectStatus</b></td>
                     }
                     <td>
-                        <button class="btn btn-primary" @onclick="(() => ShowProject(project.ProjectId))">View</button>
+                        <button class="btn btn-primary" @onclick="(() => ShowProject(project.ProjectId))"><i class="oi oi-eye"></i> View</button>
                     </td>
                     <td>
-                        <button class="btn btn-dark" @onclick="(() => UpdateProject(project.ProjectId))">Update</button>
+                        <button class="btn btn-dark" @onclick="(() => UpdateProject(project.ProjectId))"><i class="oi oi-pencil"></i> Update</button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" @onclick="(() => DeleteProject(project.ProjectId))">Delete</button>
+                        <button class="btn btn-danger" @onclick="(() => DeleteProject(project.ProjectId))"><i class="oi oi-trash"></i> Delete</button>
                     </td>
                 </tr>
             }
@@ -60,7 +64,7 @@ else
     </table>
 }
 
-<CreateProject Project="projectToUpdate"></CreateProject>
+@*<CreateProject Project="projectToUpdate"></CreateProject>*@
 
 @code {
 
@@ -87,12 +91,17 @@ else
     @*This is to invoke the update of a project*@
     void UpdateProject(int projectId)
     {
-        projectToUpdate = ProjectService.Projects.Find(p => p.ProjectId == projectId);
+        @*projectToUpdate = ProjectService.Projects.Find(p => p.ProjectId == projectId);*@
+        NavigationManager.NavigateTo($"createProject/{projectId}");
     }
 
     @*This is to invoke the delete of a project*@
-    void DeleteProject(int projectId)
+    async void DeleteProject(int projectId)
     {
-       ProjectService.DeleteProject(projectId);
+        @if (await JSRuntime.InvokeAsync<bool>("confirm", $"Do you want to Delete this Project?"))
+        {
+            await ProjectService.DeleteProject(projectId);
+            await JSRuntime.InvokeVoidAsync("alert", $"Company Deleted Successfully!");
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@page "/createCompany"
+@page "/createCompany/{companyId:int}"
 
 @inject ICompanyService CompanyService
 @inject IJSRuntime JSRuntime
@@ -9,12 +10,12 @@
     <h3 style="text-align:center;">Create Company</h3> }
 else
 {
-<h3 style="text-align:center;">Update @Company.CompanyName</h3>
+    <h3 style="text-align:center;">Update @Company.CompanyName</h3>
 }
 
 <EditForm Model="Company" OnValidSubmit="HandleCompanySubmit">
     <DataAnnotationsValidator />
-    
+
 
     <div style="border: 0.5px solid black; border-radius: 5px; padding: 20px; max-width: 50%; margin-left: 25%; margin-bottom: 50px; background-color:#300c4d; color:#ffffff; ">
         @*<ValidationSummary />*@
@@ -50,18 +51,30 @@ else
         <br><br>
         @if (Company.CompanyId == 0)
         {
-    <button type="submit" style="margin-left: 40%; max-width: 20%; background-color:#007EA7; " class="btn btn-primary">Create</button> }
-else
-{
-    <button type="submit" style="margin-left: 40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>}
+            <button type="submit" style="margin-left: 40%; max-width: 20%; background-color:#007EA7; " class="btn btn-primary">Create</button> }
+        else
+        {
+            <button type="submit" style="margin-left: 40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>}
 
         <br><br><br>
     </div>
 
 </EditForm>
 
-@code { [Parameter]
+@code {
+
+    [Parameter]
+    public int CompanyId { get; set; }
     public CW2.Shared.Company Company { get; set; } = new CW2.Shared.Company();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (this.CompanyId != 0)
+        {
+            this.Company = await CompanyService.GetSingleCompany(this.CompanyId);
+        }
+
+    }
 
     async void HandleCompanySubmit()
     {
@@ -71,15 +84,17 @@ else
         {
             Console.WriteLine("Create was done");
             await CompanyService.CreateCompany(Company);
-            Company = new Company();
+            await JSRuntime.InvokeVoidAsync("alert", $"Company was created Successfully!");
+            
         }
         else
         {
             Console.WriteLine("Update was done");
             await CompanyService.UpdateCompany(Company, Company.CompanyId);
+            await JSRuntime.InvokeVoidAsync("alert", $"Company was updated Successfully!");
         }
 
-        @*NavigationManager.NavigateTo("companies");*@
+        NavigationManager.NavigateTo("companies");
 
 
-    } }
+    }}

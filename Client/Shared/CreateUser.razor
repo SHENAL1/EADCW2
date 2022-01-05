@@ -1,5 +1,9 @@
-﻿@inject IUserService UserService
+﻿@page "/createUser"
+@page "/createUser/{userId:int}"
+
+@inject IUserService UserService
 @inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
 @if (User.UserId == 0)
 {
@@ -21,6 +25,12 @@ else
             <InputText @bind-Value="User.UserName" class="form-control"></InputText>
             <ValidationMessage For="@(()=> User.UserName)"></ValidationMessage>
         </div>
+        @*<div class="form-group">
+            <label>Password</label>
+            <InputText @bind-Value="User.Password" class="form-control"></InputText>
+            <ValidationMessage For="@(()=> User.Password)"></ValidationMessage>
+        </div>*@
+
         <div class="form-group">
             <label>First Name</label>
             <InputText @bind-Value="User.FirstName" class="form-control"></InputText>
@@ -48,16 +58,16 @@ else
                 <option value="">Select User Type ...</option>
                 <option value="Admin">Admin</option>
                 <option value="Developer">Developer</option>
-                
+
             </InputSelect>
             <ValidationMessage For="@(()=> User.UserType)"></ValidationMessage>
         </div>
 
-        
+
 
         @if (User.UserId == 0)
         {
-            <button type="submit" style="margin-left:40%; max-width:20%; background-color:#007EA7; " class="btn btn-primary">Submit</button>
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color:#007EA7; " class="btn btn-primary">Submit</button> 
         }
         else
         {
@@ -68,7 +78,17 @@ else
 
 @code {
     [Parameter]
+    public int UserId { get; set; }
     public CW2.Shared.User User { get; set; } = new CW2.Shared.User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (this.UserId != 0)
+        {
+            this.User = await UserService.GetSingleUser(this.UserId);
+        }
+
+    }
 
     async void HandleUserSubmit()
     {
@@ -78,11 +98,15 @@ else
         {
             Console.WriteLine("Create was done");
             await UserService.CreateUser(User);
+            await JSRuntime.InvokeVoidAsync("alert", $"User was created Successfully!");
         }
         else
         {
             Console.WriteLine("Update was done");
             await UserService.UpdateUser(User, User.UserId);
+            await JSRuntime.InvokeVoidAsync("alert", $"Ticket was updated Successfully!");
         }
+
+        NavigationManager.NavigateTo("users");
     }
 }

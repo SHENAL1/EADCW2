@@ -1,6 +1,7 @@
 ﻿@page "/tickets"
 @inject ITicketService TicketService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 @implements IDisposable
 
 <h3 style="text-align:center;">Manage Tickets</h3>
@@ -13,6 +14,9 @@
 }
 else
 {
+<p>
+    <a class="btn btn-success" href="/createTicket"><i class="oi oi-plus"></i> Create</a>
+</p>
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -49,13 +53,13 @@ else
                     @*<td>@ticket.Project</td>*@
                     @*<td>@ticket.User</td>*@
                     <td>
-                        <button class="btn btn-primary" @onclick="(() => ShowTicket(ticket.TicketId))">View</button>
+                        <button class="btn btn-primary" @onclick="(() => ShowTicket(ticket.TicketId))"><i class="oi oi-eye"></i> View</button>
                     </td>
                     <td>
-                        <button class="btn btn-dark" @onclick="(() => UpdateTicket(ticket.TicketId))">Update</button>
+                        <button class="btn btn-dark" @onclick="(() => UpdateTicket(ticket.TicketId))"><i class="oi oi-pencil"></i> Update</button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" @onclick="(() => DeleteTicket(ticket.TicketId))">Delete</button>
+                        <button class="btn btn-danger" @onclick="(() => DeleteTicket(ticket.TicketId))"><i class="oi oi-trash"></i> Delete</button>
                     </td>
                 </tr>
             }
@@ -63,7 +67,7 @@ else
     </table>
 }
 
-<CreateTicket Ticket="ticketToUpdate"></CreateTicket>
+@*<CreateTicket Ticket="ticketToUpdate"></CreateTicket>*@
 
 @code {
     CW2.Shared.Ticket ticketToUpdate = new CW2.Shared.Ticket();
@@ -88,12 +92,19 @@ else
     @*This is to invoke the update of a Ticket*@
     void UpdateTicket(int ticketId)
     {
-        ticketToUpdate = TicketService.Tickets.Find(t => t.TicketId == ticketId);
+        
+        NavigationManager.NavigateTo($"createTicket/{ticketId}");
     }
 
     @*This is to invoke the delete of a Ticket*@
-    void DeleteTicket(int ticketId)
+    async void DeleteTicket(int ticketId)
     {
-        TicketService.DeleteTicket(ticketId);
+        
+
+        @if (await JSRuntime.InvokeAsync<bool>("confirm", $"Do you want to Delete this Ticket?"))
+        {
+            await TicketService.DeleteTicket(ticketId);
+            await JSRuntime.InvokeVoidAsync("alert", $"Company Deleted Successfully!");
+        }
     }
 }

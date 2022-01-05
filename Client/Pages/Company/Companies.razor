@@ -1,6 +1,7 @@
 ﻿@page "/companies"
 @inject ICompanyService CompanyService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 @implements IDisposable
 
 <h3 style="text-align:center;">Companies</h3>
@@ -14,9 +15,9 @@
 }
 else
 {
-@*<p>
-    <a class="btn btn-success" href="/createCompany">Create</a>
-</p>*@
+<p>
+    <a class="btn btn-success" href="/createCompany"><i class="oi oi-plus"></i> Create</a>
+</p>
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -38,20 +39,20 @@ else
                     <td>@company.CompanyEmail</td>
                     <td>@company.CompanyPhoneNo</td>
                     <td>
-                        <button class="btn btn-primary" @onclick="(() => ShowCompany(company.CompanyId))">View</button>
+                        <button class="btn btn-primary" @onclick="(() => ShowCompany(company.CompanyId))"><i class="oi oi-eye"></i> View</button>
                     </td>
                     <td>
-                        <button class="btn btn-dark" @onclick="(() => UpdateCompany(company.CompanyId))">Update</button>
+                        <button class="btn btn-dark" @onclick="(() => UpdateCompany(company.CompanyId))"><i class="oi oi-pencil"></i> Update</button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" @onclick="(() => DeleteCompany(company.CompanyId))">Delete</button>
+                        <button class="btn btn-danger" @onclick="(() => DeleteCompany(company.CompanyId))"><i class="oi oi-trash"></i> Delete</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 }
-<CreateCompany Company="companyToUpdate"></CreateCompany>
+@*<CreateCompany Company="companyToUpdate"></CreateCompany>*@
 
 @code {
 
@@ -79,15 +80,20 @@ else
     @*This is to invoke the update of a company*@
     void UpdateCompany(int companyId)
     {
-        companyToUpdate = CompanyService.Companies.Find(c => c.CompanyId == companyId);
-
-        @*NavigationManager.NavigateTo("createCompany/");*@
+        NavigationManager.NavigateTo($"createCompany/{companyId}");
     }
 
     @*This is to invoke the delete of a company*@
-    void DeleteCompany(int companyId)
+    async void DeleteCompany(int companyId)
     {
-        CompanyService.DeleteCompany(companyId);
+        @if (await JSRuntime.InvokeAsync<bool>("confirm", $"Do you want to Delete this Company?"))
+        {
+            await CompanyService.DeleteCompany(companyId);
+            await JSRuntime.InvokeVoidAsync("alert", $"Company Deleted Successfully!");
+        }
+        
+
+
     }
 
 }

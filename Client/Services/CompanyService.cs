@@ -35,8 +35,9 @@ namespace CW2.Client.Services
         {
             var result = await _httpClient.PostAsJsonAsync($"api/company", company);
             Companies = await result.Content.ReadFromJsonAsync<List<Company>>();
-            OnChange.Invoke();
+            //OnChange.Invoke();
             return Companies;
+
             
         }
 
@@ -44,7 +45,7 @@ namespace CW2.Client.Services
         {
             var result = await _httpClient.PutAsJsonAsync($"api/company/{id}", company);
             Companies = await result.Content.ReadFromJsonAsync<List<Company>>();
-            OnChange.Invoke();
+            //OnChange.Invoke();
             return Companies;
         }
 

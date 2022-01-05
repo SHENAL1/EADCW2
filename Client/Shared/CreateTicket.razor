@@ -1,9 +1,13 @@
-﻿@inject ITicketService TicketService
+﻿@page "/createTicket"
+@page "/createTicket/{ticketId:int}"
+
+@inject ITicketService TicketService
 @inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
 @if (Ticket.TicketId == 0)
 {
-    <h3 style="text-align:center;">Create Ticket</h3>
+    <h3 style="text-align:center;">Create Ticket</h3> 
 }
 else
 {
@@ -36,47 +40,63 @@ else
             <ValidationMessage For="@(()=> Ticket.TicketStatus)"></ValidationMessage>
         </div>
 
-        
+
 
         @*<div class="form-group">
-            <label>Project Name</label>
-            <InputText @bind-Value="Ticket.ProjectName" class="form-control"></InputText>
-            <ValidationMessage For="@(()=> Ticket.ProjectName)"></ValidationMessage>
-        </div>
-        <div class="form-group">
-            <label>User name</label>
-            <InputText @bind-Value="Ticket.UserName" class="form-control"></InputText>
-            <ValidationMessage For="@(()=> Ticket.UserName)"></ValidationMessage>
-        </div>*@
+                <label>Project Name</label>
+                <InputText @bind-Value="Ticket.ProjectName" class="form-control"></InputText>
+                <ValidationMessage For="@(()=> Ticket.ProjectName)"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>User name</label>
+                <InputText @bind-Value="Ticket.UserName" class="form-control"></InputText>
+                <ValidationMessage For="@(()=> Ticket.UserName)"></ValidationMessage>
+            </div>*@
 
 
         @if (Ticket.TicketId == 0)
         {
-    <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Submit</button> }
-else
-{
-    <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>}
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Create</button> }
+        else
+        {
+            <button type="submit" style="margin-left:40%; max-width:20%; background-color: #007EA7; " class="btn btn-primary">Update</button>
+        }
 
     </div>
 </EditForm>
 
-@code {
+@code { 
     [Parameter]
+    public int TicketId { get; set; }
     public CW2.Shared.Ticket Ticket { get; set; } = new CW2.Shared.Ticket();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (this.TicketId != 0)
+        {
+            this.Ticket = await TicketService.GetSingleTicket(this.TicketId);
+        }
+
+    }
+
 
     async void HandleTicketSubmit()
     {
-       await JSRuntime.InvokeVoidAsync("console.log", Ticket);
+        await JSRuntime.InvokeVoidAsync("console.log", Ticket);
 
         if (Ticket.TicketId == 0)
         {
             Console.WriteLine("Create was done");
             await TicketService.CreateTicket(Ticket);
+            await JSRuntime.InvokeVoidAsync("alert", $"Ticket was created Successfully!");
         }
         else
         {
             Console.WriteLine("Update was done");
             await TicketService.UpdateTicket(Ticket, Ticket.TicketId);
+            await JSRuntime.InvokeVoidAsync("alert", $"Ticket was updated Successfully!");
         }
+
+        NavigationManager.NavigateTo("tickets");
     }
 }

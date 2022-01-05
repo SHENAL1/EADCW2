@@ -1,6 +1,7 @@
 ﻿@page "/users"
 @inject IUserService UserService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 @implements IDisposable
 
 <h3 style="text-align:center;">Users</h3>
@@ -13,6 +14,9 @@
 }
 else
 {
+    <p>
+        <a class="btn btn-success" href="/createUser"><i class="oi oi-plus"></i> Create</a>
+    </p>
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -40,20 +44,20 @@ else
                     <td>@user.UserType</td>
                     @*<td>@user.Company</td>*@
                     <td>
-                        <button class="btn btn-primary" @onclick="(() => ShowUser(user.UserId))">View</button>
+                        <button class="btn btn-primary" @onclick="(() => ShowUser(user.UserId))"><i class="oi oi-eye"></i> View</button>
                     </td>
                     <td>
-                        <button class="btn btn-dark" @onclick="(() => UpdateUser(user.UserId))">Update</button>
+                        <button class="btn btn-dark" @onclick="(() => UpdateUser(user.UserId))"><i class="oi oi-pencil"></i> Update</button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" @onclick="(() => DeleteUser(user.UserId))">Delete</button>
+                        <button class="btn btn-danger" @onclick="(() => DeleteUser(user.UserId))"><i class="oi oi-trash"></i> Delete</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 }
-<CreateUser User="userToUpdate"></CreateUser>
+@*<CreateUser User="userToUpdate"></CreateUser>*@
 
 @code {
 
@@ -80,13 +84,19 @@ else
     @*This is to invoke the update of a User*@
     void UpdateUser(int userId)
     {
-        userToUpdate = UserService.Users.Find(u => u.UserId == userId);
+        NavigationManager.NavigateTo($"createUser/{userId}");
     }
 
     @*This is to invoke the delete of a User*@
-    void DeleteUser(int userId)
+    async void DeleteUser(int userId)
     {
-        UserService.UDeleteUser(userId);
+        @if (await JSRuntime.InvokeAsync<bool>("confirm", $"Do you want to Delete this User?"))
+        {
+            await UserService.UDeleteUser(userId);
+            await JSRuntime.InvokeVoidAsync("alert", $"User Deleted Successfully!");
+        }
+        
+
     }
 
 }
