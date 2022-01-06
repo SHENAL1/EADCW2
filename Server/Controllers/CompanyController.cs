@@ -14,11 +14,13 @@ namespace CW2.Server.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        //static List<Company> companies = new List<Company>
-        //{
-        //    new Company { CompanyId= 1, CompanyName = "ABC Company", CompanyAddress="Colombo 4", CompanyEmail ="abc@gmail.com", CompanyPhoneNo = "0112956234", CompanyDescription = "Software Company"},
-        //    new Company { CompanyId= 2, CompanyName = "Logic Company",  CompanyAddress="Colombo 7", CompanyEmail ="logic@gmail.com", CompanyPhoneNo = "0112956235", CompanyDescription = "Software Company"}
-        //};
+        static List<Company> companies = new List<Company>
+        {
+            new Company { CompanyId= 1, CompanyName = "ABC Company", CompanyAddress="Colombo 4", CompanyEmail ="abc@gmail.com",
+                CompanyPhoneNo = "0112956234", CompanyDescription = "Software Company"},
+            new Company { CompanyId= 2, CompanyName = "Logic Company",  CompanyAddress="Colombo 7", CompanyEmail ="logic@gmail.com", 
+                CompanyPhoneNo = "0112956235", CompanyDescription = "Software Company"}
+        };
         private readonly ApplicationDbContext _context;
 
         public CompanyController(ApplicationDbContext context)

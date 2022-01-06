@@ -39,7 +39,7 @@ namespace CW2.Shared
         [Required(ErrorMessage = "Select the User Type")]
         public string UserType { get; set; }
 
-        [Required(ErrorMessage = "Enter the correct company name")]
+        [Required(ErrorMessage = "Select the correct Company")]
         public string CompanyName { get; set; }
 
         //public Company Company { get; set; }

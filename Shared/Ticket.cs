@@ -23,16 +23,16 @@ namespace CW2.Shared
         public string TicketStatus { get; set; }
 
 
-        [Required]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "Enter the Project Name which this ticket is included (3-100 characters)")]
+        [Required(ErrorMessage = "Select the Project")]
+        //[StringLength(100, MinimumLength = 3, ErrorMessage = "Enter the Project Name which this ticket is included (3-100 characters)")]
         public string ProjectName { get; set; }
 
-        [StringLength(30, MinimumLength = 3, ErrorMessage = "Enter the User's Name to which this ticket is assigned to (3-30 characters)")]
+        [Required(ErrorMessage = "Select the User to Assign")]
         public string UserName { get; set; }
 
         //public Project Project { get; set; }
 
-        //public User User { get; set; }
+        //public User UserId { get; set; }
 
     }
 }

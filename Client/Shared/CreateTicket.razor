@@ -2,12 +2,14 @@
 @page "/createTicket/{ticketId:int}"
 
 @inject ITicketService TicketService
+@inject IUserService UserService
+@inject IProjectService ProjectService
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
 @if (Ticket.TicketId == 0)
 {
-    <h3 style="text-align:center; margin-top:50px; ">Create Ticket</h3> 
+    <h3 style="text-align:center; margin-top:50px; ">Create Ticket</h3>
 }
 else
 {
@@ -41,15 +43,35 @@ else
         </div>
 
         <div class="form-group">
-                <label>Project Name</label>
-                <InputText @bind-Value="Ticket.ProjectName" class="form-control"></InputText>
-                <ValidationMessage For="@(()=> Ticket.ProjectName)"></ValidationMessage>
-            </div>
-            <div class="form-group">
-                <label>Assign this ticket to user(User Name)</label>
-                <InputText @bind-Value="Ticket.UserName" class="form-control"></InputText>
-                <ValidationMessage For="@(()=> Ticket.UserName)"></ValidationMessage>
-            </div>
+            <label>Project Name</label>
+            @*<InputText @bind-Value="Ticket.ProjectName" class="form-control"></InputText>*@
+            <InputSelect @bind-Value="Ticket.ProjectName" class="form-control">
+                <option value="">Select Project</option>
+                @foreach (var project in ProjectService.Projects)
+                {
+
+                    <option value="@project.ProjectName">@project.ProjectName</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=> Ticket.ProjectName)"></ValidationMessage>
+        </div>
+        <div class="form-group">
+            <label>Assign this ticket to user(User Name)</label>
+            @*<InputText @bind-Value="Ticket.UserName" class="form-control"></InputText>*@
+
+            <InputSelect @bind-Value="Ticket.UserName" class="form-control">
+                <option value="">Select User Name</option>
+                @foreach (var user in UserService.Users)
+                {
+
+                    <option value="@user.UserName">@user.UserName</option>
+                    @*<InputText @bind-Value="Ticket.TicketName"  class="form-control">@user.UserId</InputText>*@
+                }
+            </InputSelect>
+
+
+            <ValidationMessage For="@(()=> Ticket.UserName)"></ValidationMessage>
+        </div>
 
 
         @if (Ticket.TicketId == 0)
@@ -63,7 +85,7 @@ else
     </div>
 </EditForm>
 
-@code { 
+@code {
     [Parameter]
     public int TicketId { get; set; }
     public CW2.Shared.Ticket Ticket { get; set; } = new CW2.Shared.Ticket();
@@ -75,6 +97,8 @@ else
             this.Ticket = await TicketService.GetSingleTicket(this.TicketId);
         }
 
+        await ProjectService.GetProjects();
+        await UserService.GetUsers();
     }
 
 

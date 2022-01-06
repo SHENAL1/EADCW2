@@ -2,6 +2,7 @@
 @page "/createUser/{userId:int}"
 
 @inject IUserService UserService
+@inject ICompanyService CompanyService
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
@@ -64,11 +65,21 @@ else
         </div>
         <div class="form-group">
             <label>User Company Name</label>
-            <InputText @bind-Value="User.CompanyName" class="form-control"></InputText>
+            @*<InputText @bind-Value="User.CompanyName" class="form-control"></InputText>*@
+
+            <InputSelect @bind-Value="User.CompanyName" class="form-control">
+                <option value="">Select Project</option>
+                @foreach (var company in CompanyService.Companies)
+                {
+
+                    <option value="@company.CompanyName">@company.CompanyName</option>
+                    
+                }
+            </InputSelect>
             <ValidationMessage For="@(()=> User.CompanyName)"></ValidationMessage>
         </div>
 
-
+        
         @if (User.UserId == 0)
         {
             <button type="submit" style="margin-left: 40%; max-width: 20%; background-color:#16FB9; " class="btn btn-primary">Create</button>
@@ -92,6 +103,8 @@ else
             this.User = await UserService.GetSingleUser(this.UserId);
         }
 
+        @*This is to get all the company names to the form*@
+        await CompanyService.GetCompanies();
     }
 
     async void HandleUserSubmit()

@@ -2,6 +2,8 @@
 @page "/createProject/{projectId:int}"
 
 @inject IProjectService ProjectService
+@inject ICompanyService CompanyService
+@inject IUserService UserService
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
@@ -49,12 +51,28 @@ else
 
         <div class="form-group">
             <label>Assign this project to User</label>
-            <InputText @bind-Value="Project.UserName" class="form-control"></InputText>
+            @*<InputText @bind-Value="Project.UserName" class="form-control"></InputText>*@
+            <InputSelect @bind-Value="Project.UserName" class="form-control">
+                <option value="">Select User Name</option>
+                @foreach (var user in UserService.Users)
+                {
+
+                    <option value="@user.UserName">@user.UserName</option>
+                }
+            </InputSelect>
             <ValidationMessage For="@(()=> Project.UserName)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label>The company this project has been assigned for</label>
-            <InputText @bind-Value="Project.CompanyName" class="form-control"></InputText>
+            @*<InputText @bind-Value="Project.CompanyName" class="form-control"></InputText>*@
+            <InputSelect @bind-Value="Project.CompanyName" class="form-control">
+                <option value="">Select Project Name</option>
+                @foreach (var company in CompanyService.Companies)
+                {
+
+                    <option value="@company.CompanyName">@company.CompanyName</option>
+                }
+            </InputSelect>
             <ValidationMessage For="@(()=> Project.CompanyName)"></ValidationMessage>
         </div>
 
@@ -67,7 +85,7 @@ else
     </div>
 </EditForm>
 
-@code { 
+@code {
     [Parameter]
     public int ProjectId { get; set; }
     public CW2.Shared.Project Project { get; set; } = new CW2.Shared.Project();
@@ -79,6 +97,8 @@ else
             this.Project = await ProjectService.GetSingleProject(this.ProjectId);
         }
 
+        await CompanyService.GetCompanies();
+        await UserService.GetUsers();
     }
 
     async void HandleProjectSubmit()
